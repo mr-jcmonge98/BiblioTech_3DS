@@ -57,7 +57,8 @@ fun Navegacion(
                 },
                 onCancelar = {
                     navController.popBackStack()
-                }
+                },
+                viewModel = viewModel()
             )
         }
 

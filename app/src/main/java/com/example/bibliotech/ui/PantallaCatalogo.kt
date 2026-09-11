@@ -48,6 +48,8 @@ import com.example.bibliotech.ui.components.TarjetaLibro
 import androidx.lifecycle.ViewModel
 import  androidx.lifecycle.ViewModelProvider
 import android.app.Application
+import androidx.compose.material3.FabPosition
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.runtime.collectAsState
 import com.example.bibliotech.viewmodel.LibroViewModel
 
@@ -96,8 +98,19 @@ fun PantallaCatalogo(
 
 
 
-    Scaffold( topBar = {TopAppBar(title = {Text("Catálogo de Libros")})
-}){padding ->
+    Scaffold(
+        //añadiremos el boton que enlazara a la oantalla de crear un nuevo libro
+        floatingActionButtonPosition = FabPosition.Start, //alineandno a la izquierda
+
+        floatingActionButton = {
+            FloatingActionButton(onClick = onAgregarLibro, containerColor = Color.DarkGray) {
+                Text("+", color = Color.White)
+            }
+        },
+
+        topBar = {TopAppBar(title = {Text("Catálogo de Libros")})
+})
+    {padding ->
         Column(modifier = Modifier.padding(padding)
             .padding(5.dp)
             .fillMaxSize()
