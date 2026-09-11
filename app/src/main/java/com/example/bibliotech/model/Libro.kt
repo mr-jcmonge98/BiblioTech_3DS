@@ -18,7 +18,7 @@ import  androidx.room.PrimaryKey
 data class Libro(
     //Identificador unico generado automaticamente
     @PrimaryKey(autoGenerate = true)
-    val id: Int,
+    val id: Int = 0,
     //Resto de propiedades
     val titulo: String,
     val autor: String,

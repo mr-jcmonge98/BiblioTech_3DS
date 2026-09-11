@@ -52,13 +52,14 @@ fun Navegacion(
         //--RUTA PARA ENVIAR A PANTALLA AGREGAR LIBRO
         composable("agregar"){
             PantallaAgregarLibro(
+                viewModel = viewModel(),
                 onGuardar = {
-
+                    navController.popBackStack()
                 },
                 onCancelar = {
                     navController.popBackStack()
-                },
-                viewModel = viewModel()
+                }
+
             )
         }
 
