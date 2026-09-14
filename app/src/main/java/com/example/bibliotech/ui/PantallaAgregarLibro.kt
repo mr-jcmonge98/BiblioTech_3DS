@@ -25,6 +25,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
@@ -70,7 +71,17 @@ fun PantallaAgregarLibro(
             value = titulo,
             onValueChange = { titulo = it },
             label = { Text("Título") },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            //modificaciones a los impus
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedBorderColor = Color(0xFF3B82F6),
+                unfocusedBorderColor = Color.White,
+                focusedLabelColor = Color(0xFF60A5FA),
+                unfocusedLabelColor = Color.LightGray,
+                cursorColor = Color.White,
+                focusedTextColor = Color.White,
+                unfocusedTextColor = Color.White
+            )
         )
 
         Spacer(modifier = Modifier.height(12.dp))
@@ -79,7 +90,16 @@ fun PantallaAgregarLibro(
             value = autor,
             onValueChange = { autor = it },
             label = { Text("Autor") },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedBorderColor = Color(0xFF3B82F6),
+                unfocusedBorderColor = Color.White,
+                focusedLabelColor = Color(0xFF60A5FA),
+                unfocusedLabelColor = Color.LightGray,
+                cursorColor = Color.White,
+                focusedTextColor = Color.White,
+                unfocusedTextColor = Color.White
+            )
         )
 
         Spacer(modifier = Modifier.height(12.dp))
@@ -88,7 +108,16 @@ fun PantallaAgregarLibro(
             value = categoria,
             onValueChange = { categoria = it },
             label = { Text("Categoría") },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedBorderColor = Color(0xFF3B82F6),
+                unfocusedBorderColor = Color.White,
+                focusedLabelColor = Color(0xFF60A5FA),
+                unfocusedLabelColor = Color.LightGray,
+                cursorColor = Color.White,
+                focusedTextColor = Color.White,
+                unfocusedTextColor = Color.White
+            )
         )
 
         Spacer(modifier = Modifier.height(12.dp))
@@ -97,7 +126,16 @@ fun PantallaAgregarLibro(
             value = anio,
             onValueChange = { anio = it },
             label = { Text("Año") },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedBorderColor = Color(0xFF3B82F6),
+                unfocusedBorderColor = Color.White,
+                focusedLabelColor = Color(0xFF60A5FA),
+                unfocusedLabelColor = Color.LightGray,
+                cursorColor = Color.White,
+                focusedTextColor = Color.White,
+                unfocusedTextColor = Color.White
+            )
         )
 
         Spacer(modifier = Modifier.height(12.dp))
@@ -106,7 +144,16 @@ fun PantallaAgregarLibro(
             value = descripcion,
             onValueChange = { descripcion = it },
             label = { Text("Descripción") },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedBorderColor = Color(0xFF3B82F6),
+                unfocusedBorderColor = Color.White,
+                focusedLabelColor = Color(0xFF60A5FA),
+                unfocusedLabelColor = Color.LightGray,
+                cursorColor = Color.White,
+                focusedTextColor = Color.White,
+                unfocusedTextColor = Color.White
+            )
         )
 
         Spacer(modifier = Modifier.height(20.dp))

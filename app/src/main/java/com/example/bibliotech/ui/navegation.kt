@@ -87,7 +87,9 @@ fun Navegacion(
             }
              if (libro != null){
                  PantallaDetalleLibro(libro = libro!!,
-                     onRegresar = {navController.popBackStack()} )
+                     onRegresar = {navController.popBackStack()},
+                     onEditar = {},
+                     onEliminar = {})
              }
 
 

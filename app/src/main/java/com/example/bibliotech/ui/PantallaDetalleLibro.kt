@@ -1,17 +1,22 @@
 package com.example.bibliotech.ui
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.MenuBook
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.inspectable
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -20,7 +25,10 @@ import com.example.bibliotech.model.Libro
 @Composable
 fun PantallaDetalleLibro(
     libro: Libro,
-    onRegresar: () -> Unit
+    onRegresar: () -> Unit,
+    //añadiremos los parametros para los eventos de los botones editar y eliminar
+    onEditar:(Int) -> Unit,
+    onEliminar:(Int) -> Unit,
 ) {
     Column(modifier = Modifier.fillMaxSize().padding(20.dp)){
         Icon(
@@ -42,7 +50,33 @@ fun PantallaDetalleLibro(
         Text("Descripcion: ${libro.descripcion}")
         Text("Disponible: ${libro.disponible}")
 
-        Button(onClick=onRegresar) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ){
+            Button(
+                onClick = {
+                    onEditar(libro.id)
+                },
+                modifier = Modifier.weight(1f))
+            {
+                Text("Editar")
+            }
+            Button(
+                onClick = {
+                    onEliminar(libro.id)
+                },
+                modifier = Modifier.weight(1f))
+            {
+                Text("Eliminar")
+            }
+        }
+        Spacer(modifier = Modifier.height(10.dp))
+
+        OutlinedButton(
+            onClick = onRegresar,
+            modifier = Modifier.fillMaxWidth()
+        ) {
             Text("Regresar")
         }
     }
