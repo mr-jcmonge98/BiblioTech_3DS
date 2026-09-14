@@ -20,6 +20,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.bibliotech.model.Libro
 import com.example.bibliotech.viewmodel.LibroViewModel
+//IMPORTACIONES AGREGADAS
+import androidx.compose.foundation.background
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 
 @Composable
 fun PantallaAgregarLibro(
@@ -33,11 +41,30 @@ fun PantallaAgregarLibro(
     var anio by remember {mutableStateOf("") }
     var descripcion by remember {mutableStateOf("") }
 
-    Column(modifier = Modifier.fillMaxSize().padding(20.dp)){
+    @OptIn(ExperimentalMaterial3Api::class)
+    Scaffold(containerColor = Color.Black,
 
-        Text("Agregar nuevo libro")
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text(
+                        "Agregar Libro",
+                        color = Color.White
+                    )
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = Color.Black
+                )
+            )
+        }
+    ){paddingValues ->
 
-        Spacer(modifier = Modifier.height(16.dp))
+    Column(modifier = Modifier.fillMaxSize()
+        .background(Color.Black)
+        .verticalScroll(rememberScrollState())
+        .padding(paddingValues)){
+
+        Spacer(modifier = Modifier.height(6.dp))
 
         OutlinedTextField(
             value = titulo,
@@ -117,5 +144,5 @@ fun PantallaAgregarLibro(
             Text("Cancelar")
         }
     }
-
+    }
 }
