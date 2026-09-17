@@ -10,17 +10,29 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.MenuBook
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.inspectable
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.bibliotech.model.Libro
+
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 
 @Composable
 fun PantallaDetalleLibro(
@@ -30,25 +42,44 @@ fun PantallaDetalleLibro(
     onEditar:(Int) -> Unit,
     onEliminar:(Int) -> Unit,
 ) {
-    Column(modifier = Modifier.fillMaxSize().padding(20.dp)){
+    var mostrarDialogo by remember { mutableStateOf(false) }
+
+    @OptIn(ExperimentalMaterial3Api::class)
+    Scaffold(containerColor = Color.Black,
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text("Detalle de Libro",
+                        color = Color.White
+                    )
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = Color.Black
+                )
+            )
+        }){paddingValues ->
+
+    Column(modifier = Modifier.fillMaxSize().padding(20.dp).padding(paddingValues)){
         Icon(
             imageVector = Icons.AutoMirrored.Filled.MenuBook,
             contentDescription = "Libro",
-            modifier = Modifier.height(30.dp)
+            modifier = Modifier.height(30.dp),
+            tint = Color.White
         )
         Spacer(modifier = Modifier.height(16.dp))
 
         Text(
             text = libro.titulo,
             fontSize = 28.sp,
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.Bold,
+            color = Color.White
         )
         Spacer(modifier = Modifier.height(16.dp))
-        Text("Autor: ${libro.autor}")
-        Text("Categoria: ${libro.categoria}")
-        Text("Año: ${libro.anio}")
-        Text("Descripcion: ${libro.descripcion}")
-        Text("Disponible: ${libro.disponible}")
+        Text("Autor: ${libro.autor}",color = Color.White)
+        Text("Categoria: ${libro.categoria}",color = Color.White)
+        Text("Año: ${libro.anio}",color = Color.White)
+        Text("Descripcion: ${libro.descripcion}",color = Color.White)
+        Text("Disponible: ${libro.disponible}",color = Color.White)
 
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -64,7 +95,8 @@ fun PantallaDetalleLibro(
             }
             Button(
                 onClick = {
-                    onEliminar(libro.id)
+                  //  onEliminar(libro.id)
+                    mostrarDialogo = true
                 },
                 modifier = Modifier.weight(1f))
             {
@@ -79,5 +111,32 @@ fun PantallaDetalleLibro(
         ) {
             Text("Regresar")
         }
+        //Construiremos la ventana emergente cuando presionemos el boton eliminar
+        if(mostrarDialogo){
+            AlertDialog(
+                onDismissRequest = {mostrarDialogo = false},
+                title = {
+                    Text("Confirmacion")
+                        },
+                text = {
+                    Text("¿Estas seguro de eliminar \"${libro.titulo}\"?")
+                },
+                confirmButton = {
+                    Button( onClick = {
+                        mostrarDialogo = false
+                        onEliminar(libro.id)
+                    }) {
+                        Text("Eliminar")
+                    }
+                },
+                dismissButton = {
+                    Button(onClick = {
+                        mostrarDialogo = false
+                    }) {
+                        Text("Cancelar")
+                        }
+                    })
+                }
+    }
     }
 }

@@ -62,6 +62,7 @@ dependencies {
     implementation(libs.androidx.room.runtime)
 // Extensiones para utilizar corrutinas y Kotlin
     implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.ui.graphics)
 // Generador automático del código de Room
     ksp(libs.androidx.room.compiler)
 
