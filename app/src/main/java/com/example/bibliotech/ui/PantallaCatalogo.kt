@@ -50,7 +50,10 @@ import  androidx.lifecycle.ViewModelProvider
 import android.app.Application
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.rememberCoroutineScope
 import com.example.bibliotech.viewmodel.LibroViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -72,13 +75,20 @@ fun PantallaCatalogo(
     )
     //Se encarga que la interfaz este pendiente del estado de las lista nueva
     val libros by viewModel.libros.collectAsState()
+
+    //mensaje a mostrar cuando se elimine el libro
+    val snackbarHostState = remember { SnackbarHostState() }
+    val scope = rememberCoroutineScope()
+
     LaunchedEffect(Unit) { // Carga los libros cuando entramos a pantallaCatalogo
         viewModel.cargarLibros()
     }
-
-
-
-
+    LaunchedEffect(mensaje) {
+        if (mensaje != null) {
+            snackbarHostState.showSnackbar(mensaje)
+            onMensajeMostrado()
+        }
+    }
     //Capturara el texto escrito por el usuario
     var textoBusqueda by remember { mutableStateOf(" ") }
     //lista de ctaegorias
@@ -101,6 +111,8 @@ fun PantallaCatalogo(
 
 
     Scaffold(
+       //
+        snackbarHost = {SnackbarHost(hostState = snackbarHostState)},
         //añadiremos el boton que enlazara a la oantalla de crear un nuevo libro
         floatingActionButtonPosition = FabPosition.Start, //alineandno a la izquierda
 
