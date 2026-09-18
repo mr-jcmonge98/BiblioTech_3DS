@@ -1,8 +1,10 @@
 package com.example.bibliotech.data
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 import com.example.bibliotech.model.Libro
 
 
@@ -18,5 +20,12 @@ interface LibroDao {
 
 //Funcion para taer libro en base al ID "READ"
     @Query("SELECT * FROM libros WHERE id= :id")
-fun obtenerLibroPorId(id : Int): Libro?
+    fun obtenerLibroPorId(id : Int): Libro?
+
+    //Funcion para actualizar el libro
+    @Update
+    fun actualizarLibro(libro: Libro)
+    //Funcion para eliminar un libto
+    @Delete
+    fun eliminarLibro(libro: Libro)
 }

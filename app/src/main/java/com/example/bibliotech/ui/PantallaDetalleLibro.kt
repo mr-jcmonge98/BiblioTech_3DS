@@ -40,7 +40,7 @@ fun PantallaDetalleLibro(
     onRegresar: () -> Unit,
     //añadiremos los parametros para los eventos de los botones editar y eliminar
     onEditar:(Int) -> Unit,
-    onEliminar:(Int) -> Unit,
+    onEliminar:(Libro) -> Unit,
 ) {
     var mostrarDialogo by remember { mutableStateOf(false) }
 
@@ -124,7 +124,7 @@ fun PantallaDetalleLibro(
                 confirmButton = {
                     Button( onClick = {
                         mostrarDialogo = false
-                        onEliminar(libro.id)
+                        onEliminar(libro)
                     }) {
                         Text("Eliminar")
                     }

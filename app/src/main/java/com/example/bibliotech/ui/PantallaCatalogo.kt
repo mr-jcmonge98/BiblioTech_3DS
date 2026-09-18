@@ -58,7 +58,9 @@ import com.example.bibliotech.viewmodel.LibroViewModel
 fun PantallaCatalogo(
     onRegresar: () -> Unit,
     onVerDetalles: (Int) -> Unit,
-    onAgregarLibro: () -> Unit
+    onAgregarLibro: () -> Unit,
+    mensaje: String?,
+    onMensajeMostrado: () -> Unit
 ) {
     val app = LocalContext.current.applicationContext as BibliotecaApplication
     val viewModel : LibroViewModel = viewModel(

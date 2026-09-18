@@ -42,4 +42,19 @@ class LibroViewModel(application: Application): AndroidViewModel(application){
             _libroSeleccionado.value = repository.obtenerLibroPorId(id)
         }
     }
+    //METODO PARA ACTUALIZAR UN LIBRO
+    fun actualizarLibro(libro: Libro){
+        viewModelScope.launch(Dispatchers.IO){
+            repository.actualizarLibro(libro)
+            _libros.value = repository.obtenerLibros()
+            _libroSeleccionado.value = repository.obtenerLibroPorId(libro.id)
+        }
+    }
+    //METODO PARA ELIMINAR UN LIBRO
+    fun eliminarLibro(libro:Libro){
+        viewModelScope.launch(Dispatchers.IO){
+            repository.eliminarLibro(libro)
+            _libros.value = repository.obtenerLibros()
+        }
+    }
 }
