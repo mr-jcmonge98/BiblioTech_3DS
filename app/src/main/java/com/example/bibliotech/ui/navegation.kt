@@ -84,6 +84,7 @@ fun Navegacion(
                     }
                 }
             )
+
             val libro by viewModel.libroSeleccionado.collectAsState()
             //#
             LaunchedEffect(idLibro) {

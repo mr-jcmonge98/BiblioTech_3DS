@@ -24,6 +24,7 @@ fun PantallaEditarLibro(
     onGuardar: (Libro) -> Unit,
     onCancelar: () -> Unit
 ) {
+
     var titulo by remember { mutableStateOf(libro.titulo) }
     var autor by remember { mutableStateOf(libro.autor) }
     var categoria by remember { mutableStateOf(libro.categoria) }
