@@ -38,6 +38,9 @@ fun Navegacion(
                 },
                 onPrestados = {
                     navController.navigate("prestados")
+                },
+                onEstudiantes = {
+                    navController.navigate("estudiantes")
                 }
             )
         }
@@ -139,9 +142,6 @@ fun Navegacion(
             if (libro != null) {
                 PantallaEditarLibro(
                     libro = libro!!,
-
-
-
                     /*
                     onGuardar = { libroEditado ->
                         viewModel.actualizarLibro(libroEditado)
@@ -152,13 +152,8 @@ fun Navegacion(
                         //APAREZCA EN PANTALLADETALLELIBRO, YA QUE PARA PODER VISUALIZARLA, TENIAMOS QUE AMNUALMENTE VOLVER
                         //HASTA PANTALLA CATALOGO
                     }*/
-
-
-
                     onGuardar = { libroEditado ->
-
                         viewModel.actualizarLibro(libroEditado)
-
                         // Enviamos el mensaje a la pantalla anterior (Detalle)
                         navController.previousBackStackEntry
                             ?.savedStateHandle
@@ -166,9 +161,7 @@ fun Navegacion(
                                 "mensaje",
                                 "✓ Cambios guardados correctamente"
                             )
-
                         navController.popBackStack()
-
                     },
                     onCancelar = {
                         navController.popBackStack()

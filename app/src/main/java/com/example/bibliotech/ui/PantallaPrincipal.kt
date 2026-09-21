@@ -17,7 +17,9 @@ import com.example.bibliotech.ui.components.BotonMenu
 fun PantallaPrincipal(
     onCatalogo: () -> Unit,
     onPrestamo: () -> Unit,
-    onPrestados: () -> Unit
+    onPrestados: () -> Unit,
+
+    onEstudiantes: () -> Unit
 ) {
 
     Column(
@@ -69,5 +71,18 @@ fun PantallaPrincipal(
             texto = "Libros prestados",
             onClick = onPrestados
         )
+        // ============================================
+        // ESTUDIANTES
+        // ============================================
+
+        Spacer(
+            modifier = Modifier.height(8.dp)
+        )
+        BotonMenu(
+            texto = "Estudiantes",
+            onClick = onEstudiantes
+        )
+
+
     }
 }

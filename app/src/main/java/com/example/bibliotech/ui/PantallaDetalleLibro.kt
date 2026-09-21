@@ -46,16 +46,8 @@ fun PantallaDetalleLibro(
     onRegresar: () -> Unit,
     onEditar:(Int) -> Unit,
     onEliminar:(Libro) -> Unit,
-
-
-
-
 //MODIFIQUE AQUÍ LA LINEA DE ABAJO PARA QUE LA VENTANA EMERGENTE APAREZCA EN PANTALLA DETALLE LIBRO
     navController: NavController,
-
-
-
-
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
     val backStackEntry by navController.currentBackStackEntryAsState()
@@ -72,22 +64,13 @@ fun PantallaDetalleLibro(
                 ?.savedStateHandle
                 ?.remove<String>("mensaje")
         }
-
-
-
-
-
-
-
     }
     var mostrarDialogo by remember { mutableStateOf(false) }
 
     @OptIn(ExperimentalMaterial3Api::class)
     Scaffold(containerColor = Color.Black,
         //Añadiremos el snackbarHost
-        snackbarHost = {
-            SnackbarHost(hostState = snackbarHostState)
-        },
+        snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
         topBar = {
             TopAppBar(
                 title = {
