@@ -34,18 +34,60 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 
+//IMPORTS AGREGADOS PARA MOSTRAR EL MENSAJE DE NOTIFICACIÓN
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.runtime.LaunchedEffect
+import androidx.navigation.NavController
+import androidx.navigation.compose.currentBackStackEntryAsState
 @Composable
 fun PantallaDetalleLibro(
     libro: Libro,
     onRegresar: () -> Unit,
-    //añadiremos los parametros para los eventos de los botones editar y eliminar
     onEditar:(Int) -> Unit,
     onEliminar:(Libro) -> Unit,
+
+
+
+
+//MODIFIQUE AQUÍ LA LINEA DE ABAJO PARA QUE LA VENTANA EMERGENTE APAREZCA EN PANTALLA DETALLE LIBRO
+    navController: NavController,
+
+
+
+
 ) {
+    val snackbarHostState = remember { SnackbarHostState() }
+    val backStackEntry by navController.currentBackStackEntryAsState()
+    val mensaje =
+        backStackEntry
+            ?.savedStateHandle
+            ?.get<String>("mensaje")
+
+    LaunchedEffect(mensaje) {
+
+        if (mensaje != null) {
+            snackbarHostState.showSnackbar(mensaje)
+            backStackEntry
+                ?.savedStateHandle
+                ?.remove<String>("mensaje")
+        }
+
+
+
+
+
+
+
+    }
     var mostrarDialogo by remember { mutableStateOf(false) }
 
     @OptIn(ExperimentalMaterial3Api::class)
     Scaffold(containerColor = Color.Black,
+        //Añadiremos el snackbarHost
+        snackbarHost = {
+            SnackbarHost(hostState = snackbarHostState)
+        },
         topBar = {
             TopAppBar(
                 title = {

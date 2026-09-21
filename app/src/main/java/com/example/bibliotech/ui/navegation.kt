@@ -95,6 +95,14 @@ fun Navegacion(
              if (libro != null){
                  PantallaDetalleLibro(libro = libro!!,
                      onRegresar = {navController.popBackStack()},
+
+
+                     //añadi este otro parametro para que pueda editar el libro
+                     navController = navController,
+
+
+
+
                      onEditar = {
                          //invoca a la ruta de edicion pasando el id del libro
                          idLibro -> navController.navigate("editar/$idLibro")
@@ -131,15 +139,41 @@ fun Navegacion(
             if (libro != null) {
                 PantallaEditarLibro(
                     libro = libro!!,
+
+
+
+                    /*
                     onGuardar = { libroEditado ->
                         viewModel.actualizarLibro(libroEditado)
                         //mensaje a mostrar cuando se guarde el libro
-                        mensaje = "✔ Libro guardado con éxito"
+                        mensaje = "✔ Libro modificado con éxito"
                         navController.popBackStack()
+                        // --------- REALICE UN PEQUEÑO CAMBIO PARA QUE LA NOTIFICACIÓN DE MODIFICADO
+                        //APAREZCA EN PANTALLADETALLELIBRO, YA QUE PARA PODER VISUALIZARLA, TENIAMOS QUE AMNUALMENTE VOLVER
+                        //HASTA PANTALLA CATALOGO
+                    }*/
+
+
+
+                    onGuardar = { libroEditado ->
+
+                        viewModel.actualizarLibro(libroEditado)
+
+                        // Enviamos el mensaje a la pantalla anterior (Detalle)
+                        navController.previousBackStackEntry
+                            ?.savedStateHandle
+                            ?.set(
+                                "mensaje",
+                                "✓ Cambios guardados correctamente"
+                            )
+
+                        navController.popBackStack()
+
                     },
                     onCancelar = {
                         navController.popBackStack()
                     }
+
                 )
             }
         }

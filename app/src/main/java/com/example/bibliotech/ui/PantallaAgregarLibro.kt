@@ -178,12 +178,6 @@ fun PantallaAgregarLibro(
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        OutlinedButton(
-            onClick = onCancelar,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text(text = "Cancelar", color = Color.Black)
-        }
         Button(
             onClick = onCancelar,
             modifier = Modifier.fillMaxWidth()
