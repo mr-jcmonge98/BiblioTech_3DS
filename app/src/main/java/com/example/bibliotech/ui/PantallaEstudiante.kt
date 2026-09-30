@@ -99,41 +99,26 @@ fun PantallaEstudiantes(
     val viewModel: EstudianteViewModel = viewModel(
         factory = object : ViewModelProvider.Factory {
 
-
             override fun <T : ViewModel> create(
                 modelClass: Class<T>
             ): T {
-
-
                 return EstudianteViewModel(
                     app as Application
                 ) as T
             }
         }
     )
-
-
-
-
     // =========================================================
     // OBSERVAMOS LA LISTA DE ESTUDIANTES
     // =========================================================
     // collectAsState permite que la interfaz se actualice
     // automáticamente cuando cambia la lista.
     val estudiantes by viewModel.estudiantes.collectAsState()
-
-
-
-
     // =========================================================
     // CONFIGURACIÓN DEL SNACKBAR
     // =========================================================
     val snackbarHostState =
         remember { SnackbarHostState() }
-
-
-
-
     // =========================================================
     // CARGAR ESTUDIANTES
     // =========================================================
@@ -141,10 +126,6 @@ fun PantallaEstudiantes(
     LaunchedEffect(Unit) {
         viewModel.cargarEstudiantes()
     }
-
-
-
-
     // =========================================================
     // MOSTRAR MENSAJES
     // =========================================================
@@ -152,31 +133,17 @@ fun PantallaEstudiantes(
     // "✓ Estudiante agregado correctamente"
     // "✓ Estudiante eliminado correctamente"
     LaunchedEffect(mensaje) {
-
-
         if (mensaje != null) {
-
-
             snackbarHostState.showSnackbar(mensaje)
-
-
             onMensajeMostrado()
         }
     }
-
-
-
-
     // =========================================================
     // CAMPO DE BÚSQUEDA
     // =========================================================
     var textoBusqueda by remember {
         mutableStateOf("")
     }
-
-
-
-
     // =========================================================
     // LISTA DE GRADOS
     // =========================================================
@@ -186,20 +153,12 @@ fun PantallaEstudiantes(
         "2° Bachillerato",
         "3° Bachillerato"
     )
-
-
-
-
     // =========================================================
     // GRADO SELECCIONADO
     // =========================================================
     var gradoSeleccionado by remember {
         mutableStateOf("Todos")
     }
-
-
-
-
     // =========================================================
     // LISTA DE SECCIONES
     // =========================================================
@@ -209,26 +168,16 @@ fun PantallaEstudiantes(
         "B",
         "C"
     )
-
-
-
-
     // =========================================================
     // SECCIÓN SELECCIONADA
     // =========================================================
     var seccionSeleccionada by remember {
         mutableStateOf("Todas")
     }
-
-
-
-
     // =========================================================
     // FILTRAR ESTUDIANTES
     // =========================================================
     val estudiantesFiltrados = estudiantes.filter { estudiante ->
-
-
         // -----------------------------------------------------
         // BUSCAR POR CARNET, NOMBRES O APELLIDOS
         // -----------------------------------------------------
@@ -245,30 +194,18 @@ fun PantallaEstudiantes(
                         textoBusqueda,
                         ignoreCase = true
                     )
-
-
-
-
         // -----------------------------------------------------
         // FILTRAR POR GRADO
         // -----------------------------------------------------
         val coincideGrado =
             gradoSeleccionado == "Todos" ||
                     estudiante.grado == gradoSeleccionado
-
-
-
-
         // -----------------------------------------------------
         // FILTRAR POR SECCIÓN
         // -----------------------------------------------------
         val coincideSeccion =
             seccionSeleccionada == "Todas" ||
                     estudiante.seccion == seccionSeleccionada
-
-
-
-
         // -----------------------------------------------------
         // EL ESTUDIANTE DEBE CUMPLIR LOS TRES FILTROS
         // -----------------------------------------------------
@@ -276,16 +213,10 @@ fun PantallaEstudiantes(
                 coincideGrado &&
                 coincideSeccion
     }
-
-
-
-
     // =========================================================
     // ESTRUCTURA PRINCIPAL
     // =========================================================
     Scaffold(
-
-
         // -----------------------------------------------------
         // SNACKBAR
         // -----------------------------------------------------
@@ -295,33 +226,21 @@ fun PantallaEstudiantes(
             )
         },
 
-
-
-
         // -----------------------------------------------------
         // BOTÓN FLOTANTE
         // -----------------------------------------------------
         floatingActionButtonPosition = FabPosition.Start,
-
-
         floatingActionButton = {
-
-
             FloatingActionButton(
                 onClick = onAgregarEstudiante,
                 containerColor = Color.DarkGray
             ) {
-
-
                 Text(
                     text = "+",
                     color = Color.White
                 )
             }
         },
-
-
-
 
         // -----------------------------------------------------
         // BARRA SUPERIOR
@@ -515,89 +434,45 @@ fun PantallaEstudiantes(
             // SI NO HAY RESULTADOS
             // =================================================
             if (estudiantesFiltrados.isEmpty()) {
-
-
                 Column(
-
-
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 40.dp),
-
-
                     horizontalAlignment =
                         Alignment.CenterHorizontally
                 ) {
-
-
                     Icon(
-
-
                         imageVector = Icons.Default.Person,
-
-
                         contentDescription =
                             "Sin resultados",
-
-
                         modifier = Modifier.size(48.dp)
                     )
-
-
-
-
                     Spacer(
                         modifier = Modifier.height(12.dp)
                     )
-
-
-
-
                     Text(
                         text = "No se encontraron estudiantes",
                         fontWeight = FontWeight.Bold
                     )
-
-
-
-
                     Text(
                         text =
                             "Prueba con otro carnet, nombre o filtro"
                     )
                 }
-
-
             } else {
-
-
-
-
                 // =================================================
                 // LISTA DE ESTUDIANTES
                 // =================================================
                 LazyColumn(
-
-
                     verticalArrangement =
                         Arrangement.spacedBy(10.dp),
-
-
                     modifier = Modifier.weight(1f)
                 ) {
-
-
                     items(
                         estudiantesFiltrados
                     ) { estudiante ->
-
-
                         TarjetaEstudiante(
-
-
                             estudiante = estudiante,
-
-
                             onVerDetalles = {
                                 onVerDetalles(
                                     estudiante.id
@@ -607,10 +482,6 @@ fun PantallaEstudiantes(
                     }
                 }
             }
-
-
-
-
             Spacer(
                 modifier = Modifier.height(16.dp)
             )

@@ -18,7 +18,6 @@ fun PantallaPrincipal(
     onCatalogo: () -> Unit,
     onPrestamo: () -> Unit,
     onPrestados: () -> Unit,
-
     onEstudiantes: () -> Unit
 ) {
 
@@ -74,7 +73,6 @@ fun PantallaPrincipal(
         // ============================================
         // ESTUDIANTES
         // ============================================
-
         Spacer(
             modifier = Modifier.height(8.dp)
         )
@@ -82,7 +80,5 @@ fun PantallaPrincipal(
             texto = "Estudiantes",
             onClick = onEstudiantes
         )
-
-
     }
 }
