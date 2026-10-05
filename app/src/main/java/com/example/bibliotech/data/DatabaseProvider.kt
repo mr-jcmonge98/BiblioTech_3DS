@@ -43,11 +43,9 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 // libros que ya existen.
 // ============================================================
 val MIGRATION_1_2 = object : Migration(1, 2) {
-
     override fun migrate(
         db: SupportSQLiteDatabase
     ) {
-
         db.execSQL(
             """
             CREATE TABLE IF NOT EXISTS `Estudiantes` (
@@ -63,47 +61,57 @@ val MIGRATION_1_2 = object : Migration(1, 2) {
         )
     }
 }
+val MIGRATION_2_3 = object : Migration(2, 3) {
+    override fun migrate(db: SupportSQLiteDatabase){
+        db.execSQL("DROP TABLE IF EXISTS `Prestamos`")
+        db.execSQL(
+            """
+                CREATE TABLE `Prestamos` (
+                    `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                    `idLibro` INTEGER NOT NULL,
+                    `idEstudiante` INTEGER NOT NULL,
+                    `fechaPrestamo` TEXT NOT NULL,
+                    `fechaDevolucion` TEXT,
+                    `devuelto` INTEGER NOT NULL,
+                    
+                    FOREIGN KEY(`idLibro`) REFERENCES `Libros`(`id`) 
+                    ON UPDATE NO ACTION 
+                    ON DELETE NO ACTION,
+                    
+                    FOREIGN KEY(`idEstudiante`) REFERENCES `Estudiantes`(`id`) 
+                    ON UPDATE NO ACTION ON DELETE NO ACTION
+                )
+            """.trimIndent()
+        )
+    }
+}
 // ============================================================
 // PROVEEDOR DE LA BASE DE DATOS
 // ============================================================
 object DatabaseProvider {
-
     @Volatile
     private var INSTANCE: BibliotecaDatabase? = null
-
-
     fun getDatabase(
         context: Context
     ): BibliotecaDatabase {
-
         return INSTANCE ?: synchronized(this) {
-
             val instance = Room.databaseBuilder(
-
                 // Contexto de la aplicación
                 context.applicationContext,
-
                 // Clase principal de nuestra base de datos
                 BibliotecaDatabase::class.java,
-
                 // Nombre del archivo SQLite
                 "bibliotech_database"
-
             )
-
                 // ====================================================
                 // REGISTRAMOS LA MIGRACIÓN
                 // ====================================================
                 // Le indicamos a Room cómo pasar de la versión 1
                 // a la versión 2.
-                .addMigrations(MIGRATION_1_2)
-
+                .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
                 // Construimos la base de datos
                 .build()
-
-
             INSTANCE = instance
-
             instance
         }
     }
